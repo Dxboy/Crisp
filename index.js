@@ -86,7 +86,6 @@ client.on('message', message => {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
-
 	const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
 	client.distube
     	.on("playSong", (message, queue, song) => message.channel.send(
@@ -101,7 +100,6 @@ client.on('message', message => {
     	.on("addList", (message, queue, playlist) => message.channel.send(
     	    `${client.emotes.success} | Added \`${playlist.title}\` playlist (${playlist.total_items} songs) to queue\n${status(queue)}`
     	))
-	
 });
 
 client.login(process.env.token);
