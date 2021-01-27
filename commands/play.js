@@ -7,7 +7,5 @@ module.exports = {
     aliases: ['p'], //optional...leave the array empty
     async execute(client, message, args) {
         client.distube.play(message, args.join(' '))
-        const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
-	    
     }
 }
