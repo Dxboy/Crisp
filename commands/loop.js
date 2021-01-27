@@ -1,8 +1,8 @@
 const distube = require('distube')
 
 module.exports = {
-    name: 'loop songs || queue',
-    description: 'play music',
+    name: 'loop',
+    description: 'loop songs||queue',
     cooldown: 1, //optional
     aliases: [], //optional...leave the array empty
     async execute(client, message, args) {
