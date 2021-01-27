@@ -90,12 +90,15 @@ client.on('message', message => {
 });
 const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
 client.distube
-	.on("playSong", (message, queue, song) => message.channel.send(
-	    `▶️ | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
-	))
-	.on("addSong", (message, queue, song) => message.channel.send(
-	    `☑️ | Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
-	))
+	.on("addSong", (message, queue, song) => message.channel.send({ embed: {
+		color: "RANDOM",
+		author: {
+			name: message.author.username,
+			icon_url: message.author.avatarURL()
+		},
+		description: `**${song.name}**\nDuration - ${song.formattedDuration}`,
+		footer: `Requested by - ${message.author.username}`
+	}}))
 	.on("playList", (message, queue, playlist, song) => message.channel.send(
 	    `▶️ | Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
 	))
