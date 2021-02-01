@@ -88,5 +88,19 @@ client.on('message', message => {
 	}
 	
 });
+const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
+client.distube
+	.on("playSong", (message, queue, song) => message.channel.send(
+	    `▶️ | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
+	))
+	.on("addSong", (message, queue, song) => message.channel.send(
+	    `☑️ | Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
+	))
+	.on("playList", (message, queue, playlist, song) => message.channel.send(
+	    `▶️ | Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
+	))
+	.on("addList", (message, queue, playlist) => message.channel.send(
+	    `☑️ | Added \`${playlist.title}\` playlist (${playlist.total_items} songs) to queue\n${status(queue)}`
+	))
 
-client.login(process.env.token);
+client.login("NzY3MjQwMDk4OTY5NTUwODg4.X4vCBg.aP5J3D0zrt378WInA72GGqfOVtI");
