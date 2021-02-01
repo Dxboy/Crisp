@@ -97,8 +97,7 @@ client.distube
 		color: "RED",
 		title: `${song.name}`,
 		url: `${song.url}`,
-		description: `**Duration**\n${song.formattedDuration}`,
-		thumbnail: `${song.thumbnail}`
+		description: `**Duration**\n${song.formattedDuration} ${song.thumbnail}`,
 	}}))
 	.on("playList", (message, queue, playlist, song) => message.channel.send(
 	    `▶️ | Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
