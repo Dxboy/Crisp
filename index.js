@@ -93,9 +93,13 @@ client.distube
 	.on("playSong", (message, queue, song) => message.channel.send(
 	    `▶️ | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
 	))
-	.on("addSong", (message, queue, song) => message.channel.send(
-	    `☑️ | Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
-	))
+	.on("addSong", (message, queue, song) => message.channel.send({ embed: {
+		color: "RED",
+		title: `${song.name}`,
+		url: `${song.url}`,
+		description: `**Duration**\n${song.formattedDuration}`,
+		thumbnail: `${song.thumbnail}`
+	}}))
 	.on("playList", (message, queue, playlist, song) => message.channel.send(
 	    `▶️ | Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
 	))
@@ -103,4 +107,4 @@ client.distube
 	    `☑️ | Added \`${playlist.title}\` playlist (${playlist.total_items} songs) to queue\n${status(queue)}`
 	))
 
-client.login("NzY3MjQwMDk4OTY5NTUwODg4.X4vCBg.aP5J3D0zrt378WInA72GGqfOVtI");
+client.login(process.env.token);
