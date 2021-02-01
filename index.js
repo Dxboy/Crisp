@@ -90,22 +90,48 @@ client.on('message', message => {
 });
 const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
 client.distube
-	.on("playSong", (message, queue, song) => message.channel.send(
-	    `▶️ | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user.tag}\n${status(queue)}`
-	))
-	.on("addSong", (message, queue, song) => message.channel.send({ embed: {
+	.on("playSong", (message, queue, song) => message.channel.send({ embed: {
 		color: "RED",
+		author: {
+			name: 'Now Playing~'
+		},
 		title: `${song.name}`,
 		url: `${song.url}`,
 		description: `**Duration**\n${song.formattedDuration}`,
-		thumbnail: `${song.thumbnail}.jpg`
+		footer: `Requested by - ${song.user.tag}`
 	}}))
-	.on("playList", (message, queue, playlist, song) => message.channel.send(
-	    `▶️ | Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
-	))
-	.on("addList", (message, queue, playlist) => message.channel.send(
-	    `☑️ | Added \`${playlist.title}\` playlist (${playlist.total_items} songs) to queue\n${status(queue)}`
-	))
+	.on("addSong", (message, queue, song) => message.channel.send({ embed: {
+		color: "RED",
+		author: {
+			name: 'Added to queue',
+			icon: song.user.avatarURL()
+		},
+		title: `${song.name}`,
+		url: `${song.url}`,
+		description: `**Duration**\n${song.formattedDuration}`,
+		footer: `Requested by - ${song.user.tag}`
+	}}))
+	.on("playList", (message, queue, playlist, song) => message.channel.send({ embed: {
+		color: "RED",
+		author: {
+			name: 'Now Playing'
+		},
+		title: `${song.name}`,
+		url: `${song.url}`,
+		description: `**Duration**\n${song.formattedDuration}`,
+		footer: `Requested by - ${song.user.tag}`
+	}}))
+	.on("addList", (message, queue, playlist) => message.channel.send({ embed: {
+		color: "RED",
+		author: {
+			name: 'Added to queue',
+			icon: song.user.avatarURL()
+		},
+		title: `${song.name}`,
+		url: `${song.url}`,
+		description: `**Duration**\n${song.formattedDuration}`,
+		footer: `Requested by - ${song.user.tag}`
+	}}))
 
 client.login(process.env.token);
 
