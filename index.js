@@ -90,31 +90,11 @@ client.on('message', message => {
 });
 const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``
 client.distube
-	.on("playSong", (message, queue, song) => message.channel.send({ embed: {
-		color: "RED",
-		author: {
-			name: 'Now Playing~'
-		},
-		title: `${song.name}`,
-		url: `${song.url}`,
-		description: `**Duration**\n${song.formattedDuration}`,
-		footer: `Requested by - ${song.user.tag}`
-	}}))
 	.on("addSong", (message, queue, song) => message.channel.send({ embed: {
 		color: "RED",
 		author: {
 			name: 'Added to queue',
 			icon: song.user.avatarURL()
-		},
-		title: `${song.name}`,
-		url: `${song.url}`,
-		description: `**Duration**\n${song.formattedDuration}`,
-		footer: `Requested by - ${song.user.tag}`
-	}}))
-	.on("playList", (message, queue, playlist, song) => message.channel.send({ embed: {
-		color: "RED",
-		author: {
-			name: 'Now Playing'
 		},
 		title: `${song.name}`,
 		url: `${song.url}`,
