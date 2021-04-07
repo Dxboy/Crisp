@@ -9,8 +9,10 @@ module.exports = {
     async execute(client, message, args) {
         var userID = message.author.id + message.guild.id
         var pull = db.fetch(`pull_${userID}`)
+        var last5star = db.fetch(`last5tar_${userID}`)
         var guarantee = []
         var char5 = ['Keqing', 'Diluc', 'Qiqi', 'Jean', 'Mona']
+        var char5limited = 'Venti'
         var char4 = [
                     'Diona',
                     'Xinyan',
@@ -48,16 +50,25 @@ module.exports = {
             var firstResult = Math.floor(Math.random() * char4.length)
             while (i < 9) {
                 var result = Math.floor(Math.random() * 1000)
-                if(result <= 6) {
+                if(result <= 6 && result > 3) {
                     var charResult0 = Math.floor(Math.random() * char5.length)
                     message.channel.send(char5[charResult0])
+                    db.subtract(`pull_${message.author.id + message.guild.id}`, pull)
+                } else if (result <= 3){
+                    message.channel.send(char5limited)
+                    db.add(`last5star_${userID}`, 1)
                     db.subtract(`pull_${message.author.id + message.guild.id}`, pull)
                 } else if(result <= 51 && result >= 6) {
                     var charResult1 = Math.floor(Math.random() * char4.length)
                     var charResult0 = Math.floor(Math.random() * char5.length)
                     if(pull === 90) {
+                        var a = Math.floor(Math.random() * 100)
                         db.subtract(`pull_${message.author.id + message.guild.id}`, pull)
-                        return message.channel.send(char5[charResult0])
+                        if(a > 50) {
+                            return message.channel.send(char5[charResult0])
+                        } else if(a <= 50) {
+                            return message.channel.send
+                        }
                     }
                     message.channel.send(char4[charResult1])
                     db.add(`pull_${userID}`, 1)
